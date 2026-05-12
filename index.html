@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlockTech | Reparación, Venta & CCTV · Ensenada, B.C.</title>
+    <meta name="description" content="Venta y reparación de equipos de cómputo, instalación de CCTV y videovigilancia, redes. Servicio a domicilio en Ensenada, Baja California.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --cyan: #00e5ff;
+            --orange: #ff6b00;
+            --bg: #060609;
+            --bg2: #0a0a10;
+            --surface: rgba(255,255,255,0.03);
+            --bc: rgba(0,229,255,0.15);
+            --bo: rgba(255,107,0,0.2);
+            --text: #cdd5e0;
+            --dim: #5a6070;
+        }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Rajdhani', sans-serif;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(0,229,255,0.025) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,229,255,0.025) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* NAV */
+        nav {
+            position: fixed; top: 0; width: 100%; z-index: 100;
+            background: rgba(6,6,9,0.93);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--bc);
+            height: 68px; display: flex; align-items: center;
+        }
+        .nav-in {
+            max-width: 1200px; margin: 0 auto; padding: 0 24px;
+            width: 100%; display: flex; align-items: center; justify-content: space-between;
+        }
+        .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+        .logo-box {
+            width: 42px; height: 42px;
+            border: 1px solid var(--cyan);
+            background: var(--bg2);
+            display: flex; align-items: center; justify-content: center; overflow: hidden;
+            clip-path: polygon(0 0, 85% 0, 100% 15%, 100% 100%, 0 100%);
+        }
+        .logo-box img { width: 100%; height: 100%; object-fit: contain; }
+        .brand-name {
+            font-family: 'Orbitron', sans-serif; font-weight: 900;
+            font-size: 13px; letter-spacing: 0.05em; color: #fff; line-height: 1;
+        }
+        .brand-name span { color: var(--cyan); }
+        .brand-sub {
+            font-size: 9px; letter-spacing: 0.3em; color: var(--dim);
+            font-family: 'Orbitron', sans-serif; text-transform: uppercase;
+            line-height: 1; margin-top: 3px; display: block;
+        }
+        .nav-links { display: flex; gap: 36px; list-style: none; }
+        .nav-links a {
+            font-family: 'Orbitron', sans-serif; font-size: 9px;
+            letter-spacing: 0.2em; text-transform: uppercase;
+            color: var(--dim); text-decoration: none; transition: color 0.2s;
+            position: relative;
+        }
+        .nav-links a::after {
+            content: ''; position: absolute; bottom: -4px; left: 0;
+            width: 0; height: 1px; background: var(--cyan); transition: width 0.3s;
+        }
+        .nav-links a:hover { color: var(--cyan); }
+        .nav-links a:hover::after { width: 100%; }
+        .btn-cta {
+            font-family: 'Orbitron', sans-serif; font-size: 9px; font-weight: 700;
+            letter-spacing: 0.15em; text-transform: uppercase; text-decoration: none;
+            padding: 10px 24px; background: var(--cyan); color: var(--bg);
+            clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+            transition: all 0.2s; display: inline-block; cursor: pointer;
+        }
+        .btn-cta:hover { background: #fff; box-shadow: 0 0 24px rgba(0,229,255,0.5); }
+        .btn-out {
+            background: transparent; color: var(--cyan); border: 1px solid var(--cyan);
+        }
+        .btn-out:hover { background: var(--cyan); color: var(--bg); box-shadow: none; }
+        .btn-oo {
+            background: transparent; color: var(--orange); border: 1px solid var(--orange);
+            font-family: 'Orbitron', sans-serif; font-size: 9px; font-weight: 700;
+            letter-spacing: 0.15em; text-transform: uppercase; text-decoration: none;
+            padding: 10px 24px;
+            clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+            transition: all 0.2s; display: inline-block; cursor: pointer;
+        }
+        .btn-oo:hover { background: var(--orange); color: var(--bg); }
+        .ham { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
+        .ham span { display: block; width: 22px; height: 2px; background: var(--cyan); margin: 5px 0; }
+        .mob-menu {
+            display: none; position: fixed; top: 68px; left: 0; right: 0;
+            background: rgba(6,6,9,0.98); border-bottom: 1px solid var(--bc);
+            padding: 24px; z-index: 99; flex-direction: column; gap: 20px;
+        }
+        .mob-menu.open { display: flex; }
+        .mob-menu a {
+            font-family: 'Orbitron', sans-serif; font-size: 10px;
+            letter-spacing: 0.2em; text-transform: uppercase; color: var(--text); text-decoration: none;
+        }
+        .mob-menu a:hover { color: var(--cyan); }
+
+        /* HERO */
+        .hero {
+            min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr;
+            align-items: center; max-width: 1200px; margin: 0 auto;
+            padding: 100px 24px 60px; position: relative; z-index: 1; gap: 60px;
+        }
+        .hero-badge {
+            display: inline-flex; align-items: center; gap: 8px;
+            border: 1px solid var(--bc); background: var(--surface);
+            padding: 6px 16px; margin-bottom: 28px;
+            font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase;
+            color: var(--cyan); font-family: 'Orbitron', sans-serif;
+        }
+        .hero-badge::before {
+            content: ''; width: 6px; height: 6px; background: var(--cyan);
+            border-radius: 50%; animation: blink 2s infinite;
+        }
+        @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+        .hero-title {
+            font-family: 'Orbitron', sans-serif; font-weight: 900;
+            font-size: clamp(36px, 5.5vw, 72px); line-height: 1.0;
+            color: #fff; text-transform: uppercase; margin-bottom: 8px;
+        }
+        .hero-title .ac { color: var(--cyan); }
+        .hero-title .ln2 { font-size: clamp(24px, 3.8vw, 48px); color: var(--orange); }
+        .hero-desc {
+            color: var(--dim); font-size: 16px; line-height: 1.8;
+            max-width: 480px; margin: 20px 0 32px; font-weight: 400;
+        }
+        .hero-desc strong { color: var(--text); font-weight: 600; }
+        .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+        .hero-chips { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 28px; }
+        .chip {
+            font-size: 9px; font-family: 'Orbitron', sans-serif;
+            letter-spacing: 0.1em; text-transform: uppercase;
+            padding: 5px 12px; border: 1px solid rgba(255,255,255,0.08);
+            color: var(--dim); background: var(--surface);
+        }
+        .chip.on { border-color: var(--bc); color: var(--cyan); }
+        .hero-vis { position: relative; }
+        .hero-img {
+            width: 100%; aspect-ratio: 4/3;
+            border: 1px solid var(--bc);
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 90% 100%, 0 100%);
+            overflow: hidden; position: relative;
+        }
+        .hero-img img { width: 100%; height: 100%; object-fit: cover; }
+        .hero-img::after {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(135deg, rgba(0,229,255,0.05) 0%, transparent 50%, rgba(255,107,0,0.05) 100%);
+        }
+        .stat-card {
+            position: absolute; background: rgba(6,6,9,0.92);
+            border: 1px solid var(--bc); backdrop-filter: blur(12px); padding: 12px 18px;
+        }
+        .stat-card.tr { top: -16px; right: -16px; }
+        .stat-card.bl { bottom: -20px; left: -16px; }
+        .stat-lbl {
+            font-family: 'Orbitron', sans-serif; font-size: 8px;
+            letter-spacing: 0.2em; color: var(--dim); text-transform: uppercase; margin-bottom: 4px;
+        }
+        .stat-val { font-family: 'Orbitron', sans-serif; font-size: 22px; font-weight: 900; color: var(--cyan); }
+        .stat-val.o { color: var(--orange); }
+
+        /* BAND */
+        .band {
+            background: linear-gradient(90deg, rgba(255,107,0,0.06), rgba(255,107,0,0.13), rgba(255,107,0,0.06));
+            border-top: 1px solid var(--bo); border-bottom: 1px solid var(--bo);
+            padding: 16px 0; position: relative; z-index: 1;
+        }
+        .band-in {
+            max-width: 1200px; margin: 0 auto; padding: 0 24px;
+            display: flex; align-items: center; gap: 20px;
+            justify-content: center; flex-wrap: wrap;
+        }
+        .band-icon {
+            width: 36px; height: 36px; border: 1px solid var(--bo);
+            display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+        }
+        .band p {
+            font-family: 'Orbitron', sans-serif; font-size: 11px;
+            letter-spacing: 0.2em; text-transform: uppercase; color: var(--orange);
+        }
+        .band span { color: rgba(255,107,0,0.4); }
+
+        /* SECTIONS */
+        .sec { max-width: 1200px; margin: 0 auto; padding: 80px 24px; position: relative; z-index: 1; }
+        .sec-lbl {
+            font-family: 'Orbitron', sans-serif; font-size: 9px;
+            letter-spacing: 0.4em; text-transform: uppercase; color: var(--cyan);
+            margin-bottom: 16px; display: flex; align-items: center; gap: 12px;
+        }
+        .sec-lbl::before { content: ''; width: 32px; height: 1px; background: var(--cyan); }
+        .sec-h {
+            font-family: 'Orbitron', sans-serif; font-weight: 900;
+            font-size: clamp(26px, 4vw, 44px); color: #fff;
+            text-transform: uppercase; line-height: 1.1; margin-bottom: 16px;
+        }
+        .sec-p { color: var(--dim); font-size: 16px; max-width: 560px; line-height: 1.7; }
+        .divider {
+            max-width: 1200px; margin: 0 auto; padding: 0 24px;
+            height: 1px; background: linear-gradient(90deg, transparent, var(--bc), transparent);
+        }
+
+        /* SERVICES */
+        .srv-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-top: 48px; }
+        .srv {
+            background: var(--surface); border: 1px solid rgba(255,255,255,0.05);
+            padding: 40px; position: relative; overflow: hidden;
+            transition: border-color 0.3s, background 0.3s;
+        }
+        .srv::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0;
+            height: 2px; background: var(--cyan); transform: scaleX(0); transition: transform 0.3s;
+        }
+        .srv.o::before { background: var(--orange); }
+        .srv:hover { background: rgba(0,229,255,0.03); border-color: var(--bc); }
+        .srv.o:hover { background: rgba(255,107,0,0.03); border-color: var(--bo); }
+        .srv:hover::before { transform: scaleX(1); }
+        .srv.feat {
+            grid-column: span 2; display: grid;
+            grid-template-columns: 1fr 1fr; gap: 40px; align-items: center;
+        }
+        .srv-ico {
+            width: 52px; height: 52px; border: 1px solid var(--bc);
+            display: flex; align-items: center; justify-content: center; margin-bottom: 24px;
+        }
+        .srv-ico.o { border-color: var(--bo); }
+        .srv-ico svg { width: 24px; height: 24px; stroke: var(--cyan); fill: none; stroke-width: 1.5; }
+        .srv-ico.o svg { stroke: var(--orange); }
+        .srv-num {
+            font-family: 'Orbitron', sans-serif; font-size: 52px; font-weight: 900;
+            color: rgba(255,255,255,0.04); position: absolute; top: 16px; right: 20px; line-height: 1;
+        }
+        .srv-tag { font-family: 'Orbitron', sans-serif; font-size: 9px; letter-spacing: 0.2em; color: var(--cyan); text-transform: uppercase; margin-bottom: 10px; }
+        .srv-tag.o { color: var(--orange); }
+        .srv-name { font-family: 'Orbitron', sans-serif; font-weight: 700; font-size: 19px; color: #fff; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 14px; line-height: 1.2; }
+        .srv-desc { color: var(--dim); font-size: 15px; line-height: 1.7; }
+        .srv-list { list-style: none; margin-top: 20px; display: flex; flex-direction: column; gap: 8px; }
+        .srv-list li { font-size: 13px; color: var(--dim); display: flex; align-items: center; gap: 10px; }
+        .srv-list li::before { content: ''; width: 4px; height: 4px; background: var(--cyan); flex-shrink: 0; }
+        .srv-list.o li::before { background: var(--orange); }
+        .srv-feat-img { overflow: hidden; border: 1px solid var(--bo); }
+        .srv-feat-img img { width: 100%; height: 100%; min-height: 300px; object-fit: cover; }
+
+        /* ABOUT */
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+        .about-vis { position: relative; }
+        .about-main {
+            width: 100%; aspect-ratio: 3/4; border: 1px solid var(--bc); overflow: hidden;
+            clip-path: polygon(0 0, 90% 0, 100% 10%, 100% 100%, 10% 100%, 0 90%);
+        }
+        .about-main img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(20%) contrast(1.1); }
+        .about-acc {
+            position: absolute; bottom: -24px; right: -24px; width: 45%;
+            aspect-ratio: 4/3; border: 1px solid var(--bo); overflow: hidden;
+        }
+        .about-acc img { width: 100%; height: 100%; object-fit: cover; }
+        .about-deco {
+            position: absolute; top: -20px; left: -20px; width: 60px; height: 60px;
+            border-top: 2px solid var(--cyan); border-left: 2px solid var(--cyan);
+        }
+        .vals { margin-top: 32px; display: flex; flex-direction: column; gap: 14px; }
+        .val {
+            display: flex; align-items: flex-start; gap: 16px; padding: 16px;
+            border: 1px solid rgba(255,255,255,0.04); background: var(--surface);
+            transition: border-color 0.2s;
+        }
+        .val:hover { border-color: var(--bc); }
+        .val-dot { width: 8px; height: 8px; background: var(--cyan); margin-top: 6px; flex-shrink: 0; }
+        .val-dot.o { background: var(--orange); }
+        .val-t { font-family: 'Orbitron', sans-serif; font-size: 11px; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 4px; }
+        .val-p { font-size: 13px; color: var(--dim); line-height: 1.6; }
+
+        /* GALLERY */
+        .gal { display: grid; grid-template-columns: repeat(3,1fr); grid-template-rows: 240px 240px; gap: 4px; margin-top: 48px; }
+        .gal-item { overflow: hidden; position: relative; border: 1px solid rgba(255,255,255,0.04); cursor: pointer; }
+        .gal-item:first-child { grid-row: span 2; }
+        .gal-item img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(15%) contrast(1.05); transition: transform 0.6s, filter 0.4s; }
+        .gal-item:hover img { transform: scale(1.07); filter: grayscale(0%) contrast(1.1); }
+        .gal-ov {
+            position: absolute; inset: 0;
+            background: linear-gradient(to top, rgba(6,6,9,0.75) 0%, transparent 60%);
+            opacity: 0; transition: opacity 0.3s;
+            display: flex; align-items: flex-end; padding: 16px;
+        }
+        .gal-item:hover .gal-ov { opacity: 1; }
+        .gal-lbl { font-family: 'Orbitron', sans-serif; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--cyan); }
+
+        /* CONTACT */
+        .ct-wrap {
+            background: rgba(0,229,255,0.03); border: 1px solid var(--bc);
+            padding: 64px; position: relative; overflow: hidden;
+        }
+        .ct-wrap::before {
+            content: ''; position: absolute; top: 0; right: 0; width: 300px; height: 300px;
+            background: radial-gradient(circle, rgba(0,229,255,0.07) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .ct-wrap::after {
+            content: ''; position: absolute; bottom: 0; left: 0; width: 200px; height: 200px;
+            background: radial-gradient(circle, rgba(255,107,0,0.05) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .ct-in { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+        .ct-phone { font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: clamp(26px, 4vw, 42px); color: #fff; letter-spacing: 0.05em; line-height: 1.1; margin: 16px 0 24px; }
+        .ct-phone span { color: var(--cyan); }
+        .ct-row { font-size: 13px; color: var(--dim); display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+        .ct-row svg { width: 14px; height: 14px; stroke: var(--cyan); fill: none; stroke-width: 2; flex-shrink: 0; }
+        .ct-note { font-family: 'Orbitron', sans-serif; font-size: 8px; letter-spacing: 0.3em; color: var(--dim); text-transform: uppercase; margin-top: 28px; }
+        .ct-side { display: flex; flex-direction: column; gap: 14px; align-items: flex-start; }
+        .ct-side p { color: var(--dim); font-size: 15px; line-height: 1.7; }
+
+        /* FOOTER */
+        footer { border-top: 1px solid rgba(255,255,255,0.05); background: var(--bg2); padding: 48px 24px 32px; position: relative; z-index: 1; }
+        .foot-in { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: flex-start; gap: 32px; flex-wrap: wrap; }
+        .foot-col-h { font-family: 'Orbitron', sans-serif; font-size: 8px; letter-spacing: 0.3em; color: var(--cyan); text-transform: uppercase; margin-bottom: 14px; }
+        .foot-link { font-size: 13px; color: var(--dim); text-decoration: none; display: block; margin-bottom: 8px; font-family: 'Rajdhani', sans-serif; transition: color 0.2s; }
+        .foot-link:hover { color: var(--text); }
+        .foot-copy { font-family: 'Orbitron', sans-serif; font-size: 8px; letter-spacing: 0.2em; color: var(--dim); text-transform: uppercase; max-width: 1200px; margin: 32px auto 0; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.05); text-align: center; }
+
+        /* REVEAL */
+        .rv { opacity: 0; transform: translateY(24px); transition: opacity 0.6s, transform 0.6s; }
+        .rv.v { opacity: 1; transform: none; }
+        .d1 { transition-delay: 0.1s; }
+        .d2 { transition-delay: 0.2s; }
+        .d3 { transition-delay: 0.3s; }
+
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            .hero { grid-template-columns: 1fr; text-align: center; padding-top: 90px; }
+            .hero-btns, .hero-chips { justify-content: center; }
+            .hero-vis { display: none; }
+            .hero-badge { justify-content: center; }
+            .sec-lbl { justify-content: center; }
+            .sec-h, .sec-p { text-align: center; }
+            .sec-p { margin: 0 auto; }
+            .srv-grid { grid-template-columns: 1fr; }
+            .srv.feat { grid-column: span 1; grid-template-columns: 1fr; }
+            .srv-feat-img { min-height: 200px; }
+            .about-grid { grid-template-columns: 1fr; }
+            .about-vis { display: none; }
+            .gal { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+            .gal-item:first-child { grid-row: span 1; }
+            .gal-item { height: 200px; }
+            .ct-in { grid-template-columns: 1fr; }
+            .ct-wrap { padding: 32px 20px; }
+            .nav-links, .nav-cta-d { display: none; }
+            .ham { display: block; }
+        }
+        @media (max-width: 540px) {
+            .gal { grid-template-columns: 1fr; }
+            .gal-item { height: 220px; }
+            .foot-in { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+    <div class="nav-in">
+        <a href="#inicio" class="nav-logo">
+            <div class="logo-box">
+                <img src="https://i.ibb.co/KxS2gtqD/BLOCK-11.png" alt="BlockTech" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 40 40%22><rect x=%224%22 y=%224%22 width=%2232%22 height=%2232%22 rx=%222%22 stroke=%22%2300e5ff%22 stroke-width=%221.5%22 fill=%22none%22/><path d=%22M12 15h8M12 20h12M12 25h6%22 stroke=%22%2300e5ff%22 stroke-width=%221.5%22 stroke-linecap=%22round%22/></svg>'">
+            </div>
+            <div>
+                <div class="brand-name">BLOCK<span>TECH</span></div>
+                <span class="brand-sub">Ensenada, B.C.</span>
+            </div>
+        </a>
+        <ul class="nav-links">
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#servicios">Servicios</a></li>
+            <li><a href="#nosotros">Nosotros</a></li>
+            <li><a href="#galeria">Trabajos</a></li>
+        </ul>
+        <a href="https://wa.me/526463847147" target="_blank" class="btn-cta nav-cta-d">WhatsApp</a>
+        <button class="ham" onclick="document.querySelector('.mob-menu').classList.toggle('open')" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mob-menu">
+    <a href="#inicio" onclick="this.closest('.mob-menu').classList.remove('open')">Inicio</a>
+    <a href="#servicios" onclick="this.closest('.mob-menu').classList.remove('open')">Servicios</a>
+    <a href="#nosotros" onclick="this.closest('.mob-menu').classList.remove('open')">Nosotros</a>
+    <a href="#galeria" onclick="this.closest('.mob-menu').classList.remove('open')">Trabajos</a>
+    <a href="https://wa.me/526463847147" target="_blank" class="btn-cta" style="text-align:center">Cotizar por WhatsApp</a>
+</div>
+
+<!-- HERO -->
+<section id="inicio">
+    <div class="hero">
+        <div>
+            <div class="hero-badge">Ensenada, Baja California</div>
+            <h1 class="hero-title">
+                BLOCK<span class="ac">TECH</span><br>
+                <span class="ln2">SOLUCIONES</span><br>
+                TECNOLÓGICAS
+            </h1>
+            <p class="hero-desc">
+                Venta y reparación de equipos de cómputo, instalación de <strong>CCTV y videovigilancia</strong>, redes estructuradas. Servicio a domicilio en toda la región de Ensenada.
+            </p>
+            <div class="hero-btns">
+                <a href="https://wa.me/526463847147" target="_blank" class="btn-cta" style="font-size:10px;padding:13px 28px">Cotizar Servicio</a>
+                <a href="#servicios" class="btn-cta btn-out" style="font-size:10px;padding:13px 28px">Ver Servicios</a>
+            </div>
+            <div class="hero-chips">
+                <span class="chip on">Reparación PC</span>
+                <span class="chip on">Venta Equipos</span>
+                <span class="chip on">CCTV</span>
+                <span class="chip on">Redes</span>
+                <span class="chip on">A Domicilio</span>
+            </div>
+        </div>
+
+        <div class="hero-vis rv">
+            <div class="hero-img">
+                <img src="https://i.ibb.co/hRfYhtSh/IMG-D4-E51178-97-F8-4204-A4-D6-DE4-C0120-B79-F.jpg"
+                     onerror="this.src='https://images.unsplash.com/photo-1587202372634-32705e3bf49c?auto=format&fit=crop&w=800&q=80'"
+                     alt="BlockTech Taller">
+            </div>
+            <div class="stat-card tr">
+                <div class="stat-lbl">Años de experiencia</div>
+                <div class="stat-val">5+</div>
+            </div>
+            <div class="stat-card bl">
+                <div class="stat-lbl">Servicios completados</div>
+                <div class="stat-val o">200+</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- DOMICILIO BAND -->
+<div class="band">
+    <div class="band-in">
+        <div class="band-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#ff6b00" stroke-width="1.5" width="18" height="18">
+                <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/>
+                <polyline points="9 22 9 12 15 12 15 22"/>
+            </svg>
+        </div>
+        <p>Servicio a domicilio &nbsp;<span>—</span>&nbsp; Toda la región de Ensenada</p>
+        <a href="https://wa.me/526463847147?text=Hola%20BlockTech%2C%20necesito%20servicio%20a%20domicilio" target="_blank" class="btn-cta" style="font-size:8px;padding:8px 18px">Agendar Visita</a>
+    </div>
+</div>
+
+<!-- SERVICES -->
+<section id="servicios" class="sec">
+    <div class="sec-lbl rv">01 — Especialidades</div>
+    <h2 class="sec-h rv d1">Nuestros Servicios</h2>
+    <p class="sec-p rv d2">Soluciones técnicas de calidad para hogares y negocios. Trabajamos con materiales de primer nivel y garantizamos cada trabajo.</p>
+
+    <div class="srv-grid">
+        <!-- Reparación -->
+        <div class="srv rv">
+            <span class="srv-num">01</span>
+            <div class="srv-ico">
+                <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+            </div>
+            <div class="srv-tag">Hardware</div>
+            <h3 class="srv-name">Reparación de Equipos</h3>
+            <p class="srv-desc">Diagnóstico completo y reparación profesional de laptops, computadoras y equipos de cómputo de cualquier marca.</p>
+            <ul class="srv-list">
+                <li>Limpieza profunda y cambio de pasta térmica</li>
+                <li>Reparación de tarjeta madre, GPU y pantallas</li>
+                <li>Cambio de teclado, batería y puertos</li>
+                <li>Recuperación de datos y formateo</li>
+            </ul>
+        </div>
+
+        <!-- Venta -->
+        <div class="srv o rv d1">
+            <span class="srv-num">02</span>
+            <div class="srv-ico o">
+                <svg viewBox="0 0 24 24" stroke="#ff6b00"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+            </div>
+            <div class="srv-tag o">Ventas</div>
+            <h3 class="srv-name">Venta de Equipos</h3>
+            <p class="srv-desc">Laptops, PCs, componentes y periféricos. Asesoría personalizada para elegir el equipo ideal según tu uso y presupuesto.</p>
+            <ul class="srv-list o">
+                <li>Laptops nuevas y reacondicionadas</li>
+                <li>Computadoras de escritorio y workstations</li>
+                <li>Componentes: RAM, SSD, procesadores, GPU</li>
+                <li>Periféricos y accesorios</li>
+            </ul>
+        </div>
+
+        <!-- CCTV — Featured -->
+        <div class="srv o feat rv">
+            <div>
+                <span class="srv-num">03</span>
+                <div class="srv-ico o">
+                    <svg viewBox="0 0 24 24" stroke="#ff6b00">
+                        <path d="M23 7l-7 5 7 5V7z"/>
+                        <rect x="1" y="5" width="15" height="14" rx="2"/>
+                    </svg>
+                </div>
+                <div class="srv-tag o">Videovigilancia</div>
+                <h3 class="srv-name">CCTV & Seguridad</h3>
+                <p class="srv-desc">Instalación profesional de sistemas de cámaras de seguridad. Diseñamos el sistema perfecto para tu hogar o negocio con cobertura total y cero cables expuestos.</p>
+                <ul class="srv-list o">
+                    <li>Cámaras IP y analógicas interior/exterior</li>
+                    <li>Grabadores DVR / NVR de alta resolución</li>
+                    <li>Acceso remoto desde tu celular</li>
+                    <li>Instalación canalizada, limpia y estética</li>
+                    <li>Mantenimiento preventivo y soporte</li>
+                </ul>
+            </div>
+            <div class="srv-feat-img">
+                <img src="https://i.ibb.co/C45prcZ/IMG-932-C7-FA5-E85-B-455-A-93-C4-8913510-A7524.jpg"
+                     onerror="this.src='https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=800&q=80'"
+                     alt="CCTV BlockTech">
+            </div>
+        </div>
+
+        <!-- Redes -->
+        <div class="srv rv">
+            <span class="srv-num">04</span>
+            <div class="srv-ico">
+                <svg viewBox="0 0 24 24">
+                    <rect x="9" y="2" width="6" height="4" rx="1"/>
+                    <rect x="2" y="9" width="6" height="4" rx="1"/>
+                    <rect x="16" y="9" width="6" height="4" rx="1"/>
+                    <rect x="9" y="16" width="6" height="4" rx="1"/>
+                    <path d="M12 6v3M5 11h4M15 11h4M12 13v3"/>
+                </svg>
+            </div>
+            <div class="srv-tag">Conectividad</div>
+            <h3 class="srv-name">Instalación de Redes</h3>
+            <p class="srv-desc">Diseño e instalación de redes LAN y WiFi para hogares y empresas. Conectividad estable, segura y bien organizada.</p>
+            <ul class="srv-list">
+                <li>Cableado estructurado Cat5e / Cat6</li>
+                <li>Configuración de routers y switches</li>
+                <li>Redes WiFi de largo alcance</li>
+                <li>Organización de rack y patch panel</li>
+            </ul>
+        </div>
+
+        <!-- Domicilio -->
+        <div class="srv o rv d1">
+            <span class="srv-num">05</span>
+            <div class="srv-ico o">
+                <svg viewBox="0 0 24 24" stroke="#ff6b00">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/>
+                    <polyline points="9 22 9 12 15 12 15 22"/>
+                </svg>
+            </div>
+            <div class="srv-tag o">Conveniente</div>
+            <h3 class="srv-name">Servicio a Domicilio</h3>
+            <p class="srv-desc">¿No puedes trasladarte? Vamos a tu hogar o negocio. Atendemos reparaciones, instalaciones y soporte técnico directamente donde lo necesitas.</p>
+            <ul class="srv-list o">
+                <li>Toda la región de Ensenada</li>
+                <li>Horarios flexibles y agendados por WhatsApp</li>
+                <li>Sin cargos ocultos — precio acordado antes</li>
+                <li>Diagnóstico incluido en la visita</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ABOUT -->
+<section id="nosotros" class="sec">
+    <div class="about-grid">
+        <div class="about-vis rv">
+            <div class="about-deco"></div>
+            <div class="about-main">
+                <img src="https://i.ibb.co/yckmh83s/IMG-E6-B58-CBB-11-B1-480-F-8005-FF07610232-E4.jpg"
+                     onerror="this.src='https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?auto=format&fit=crop&w=600&q=80'"
+                     alt="BlockTech trabajo">
+            </div>
+            <div class="about-acc">
+                <img src="https://i.ibb.co/wNqKXRXV/IMG-CE6-FB67-A-6-FC9-4108-9-B33-C65-DCF86-E1-CE.jpg"
+                     onerror="this.src='https://images.unsplash.com/photo-1562976540-b508567f58f4?auto=format&fit=crop&w=400&q=80'"
+                     alt="BlockTech detalle">
+            </div>
+        </div>
+        <div>
+            <div class="sec-lbl rv">02 — Nosotros</div>
+            <h2 class="sec-h rv d1">Técnicos con<br>Experiencia Real</h2>
+            <p class="sec-p rv d2">Somos BlockTech, una empresa tecnológica nacida en Ensenada. Nos especializamos en soluciones para hogares y negocios, con el compromiso de hacer bien el trabajo desde la primera visita.</p>
+            <div class="vals">
+                <div class="val rv d1">
+                    <div class="val-dot"></div>
+                    <div>
+                        <div class="val-t">Diagnóstico Honesto</div>
+                        <div class="val-p">Te decimos exactamente qué tiene tu equipo y cuánto va a costar antes de cualquier trabajo. Sin sorpresas.</div>
+                    </div>
+                </div>
+                <div class="val rv d2">
+                    <div class="val-dot o"></div>
+                    <div>
+                        <div class="val-t">Materiales de Calidad</div>
+                        <div class="val-p">Trabajamos con componentes y materiales de primer nivel. Usamos pasta térmica de alta gama y cables certificados.</div>
+                    </div>
+                </div>
+                <div class="val rv d1">
+                    <div class="val-dot"></div>
+                    <div>
+                        <div class="val-t">Garantía por Escrito</div>
+                        <div class="val-p">Todos nuestros trabajos incluyen garantía. Si algo falla, lo resolvemos sin costo adicional.</div>
+                    </div>
+                </div>
+                <div class="val rv d2">
+                    <div class="val-dot o"></div>
+                    <div>
+                        <div class="val-t">Instalaciones Limpias</div>
+                        <div class="val-p">Cero cables expuestos. Nuestras instalaciones de red y CCTV se hacen con canaleta y materiales adecuados para un resultado profesional y duradero.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- GALLERY -->
+<section id="galeria" class="sec">
+    <div class="sec-lbl rv">03 — Portafolio</div>
+    <h2 class="sec-h rv d1">Evidencia de Trabajos</h2>
+    <p class="sec-p rv d2">Proyectos reales. Así se ven nuestras instalaciones y reparaciones terminadas.</p>
+
+    <div class="gal">
+        <div class="gal-item rv">
+            <img src="https://i.ibb.co/gb74sKbf/DDC94166-9330-4844-89-E7-AABBFE34-C9-E1.jpg"
+                 onerror="this.src='https://images.unsplash.com/photo-1588508065123-287b28e01397?auto=format&fit=crop&w=600&q=80'"
+                 alt="CCTV BlockTech">
+            <div class="gal-ov"><span class="gal-lbl">Instalación CCTV</span></div>
+        </div>
+        <div class="gal-item rv d1">
+            <img src="https://i.ibb.co/wNGTsM16/IMG-4-D16-B713-F0-F4-4-CD2-A75-B-FEE2-D877-D330.jpg"
+                 onerror="this.src='https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=600&q=80'"
+                 alt="Redes BlockTech">
+            <div class="gal-ov"><span class="gal-lbl">Redes & Cableado</span></div>
+        </div>
+        <div class="gal-item rv d2">
+            <img src="https://i.ibb.co/xtc3N1rn/IMG-F11694-E9-5-CFD-44-EC-A2-F5-C7731-D90757-A.jpg"
+                 onerror="this.src='https://images.unsplash.com/photo-1555680202-c86f0e12f086?auto=format&fit=crop&w=600&q=80'"
+                 alt="PC BlockTech">
+            <div class="gal-ov"><span class="gal-lbl">Mantenimiento PC</span></div>
+        </div>
+        <div class="gal-item rv">
+            <img src="https://i.ibb.co/XZMzYfMb/480-C4477-153-E-4-BA0-8-A8-C-55201-B1-FE67-F.jpg"
+                 onerror="this.src='https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=600&q=80'"
+                 alt="Hardware BlockTech">
+            <div class="gal-ov"><span class="gal-lbl">Reparación Hardware</span></div>
+        </div>
+        <div class="gal-item rv d1">
+            <img src="https://i.ibb.co/C45prcZ/IMG-932-C7-FA5-E85-B-455-A-93-C4-8913510-A7524.jpg"
+                 onerror="this.src='https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?auto=format&fit=crop&w=600&q=80'"
+                 alt="Videovigilancia BlockTech">
+            <div class="gal-ov"><span class="gal-lbl">Videovigilancia</span></div>
+        </div>
+    </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONTACT -->
+<section id="contacto" class="sec">
+    <div class="ct-wrap rv">
+        <div class="ct-in">
+            <div>
+                <div class="sec-lbl" style="margin-bottom:16px;">04 — Contacto</div>
+                <h2 class="sec-h">Hablemos<br>por WhatsApp</h2>
+                <div class="ct-phone"><span>646</span> 384 7147</div>
+                <div class="ct-row">
+                    <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    Ensenada, Baja California
+                </div>
+                <div class="ct-row">
+                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    Lunes a Sábado · 9:00 am – 8:00 pm
+                </div>
+                <div class="ct-note">Respondemos en menos de 30 minutos</div>
+            </div>
+            <div class="ct-side">
+                <p>Escríbenos por WhatsApp para cotizar tu servicio, agendar una visita a domicilio o resolver cualquier duda. Atención directa, sin intermediarios.</p>
+                <a href="https://wa.me/526463847147?text=Hola%20BlockTech%2C%20quisiera%20cotizar%20un%20servicio" target="_blank" class="btn-cta" style="font-size:10px;padding:13px 28px;margin-top:8px">
+                    Iniciar Conversación
+                </a>
+                <a href="https://wa.me/526463847147?text=Hola%20BlockTech%2C%20necesito%20servicio%20a%20domicilio" target="_blank" class="btn-oo" style="font-size:10px;padding:13px 28px">
+                    Servicio a Domicilio
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <div class="foot-in">
+        <div>
+            <div class="nav-logo" style="margin-bottom:16px;">
+                <div class="logo-box" style="width:50px;height:50px;">
+                    <img src="https://i.ibb.co/KxS2gtqD/BLOCK-11.png" alt="BlockTech" onerror="this.style.display='none'">
+                </div>
+                <div>
+                    <div class="brand-name" style="font-size:15px;">BLOCK<span style="color:var(--cyan)">TECH</span></div>
+                    <span class="brand-sub">Ingeniería Aplicada</span>
+                </div>
+            </div>
+            <p style="font-size:13px;color:var(--dim);max-width:220px;line-height:1.6;">Soporte técnico, venta de equipos, CCTV y redes en Ensenada, B.C.</p>
+        </div>
+        <div>
+            <div class="foot-col-h">Servicios</div>
+            <a href="#servicios" class="foot-link">Reparación de Equipos</a>
+            <a href="#servicios" class="foot-link">Venta de Equipos</a>
+            <a href="#servicios" class="foot-link">CCTV & Videovigilancia</a>
+            <a href="#servicios" class="foot-link">Instalación de Redes</a>
+            <a href="#servicios" class="foot-link">Servicio a Domicilio</a>
+        </div>
+        <div>
+            <div class="foot-col-h">Contacto</div>
+            <p style="font-size:13px;color:var(--dim);margin-bottom:8px;">WhatsApp: 646 384 7147</p>
+            <p style="font-size:13px;color:var(--dim);margin-bottom:8px;">Ensenada, B.C. México</p>
+            <p style="font-size:13px;color:var(--dim);margin-bottom:20px;">Lun–Sáb 9am–8pm</p>
+            <a href="https://wa.me/526463847147" target="_blank" class="btn-cta" style="font-size:9px;padding:9px 20px;">Escribir por WhatsApp</a>
+        </div>
+    </div>
+    <div class="foot-copy">&copy; 2026 BlockTech Ensenada · Todos los derechos reservados</div>
+</footer>
+
+<script>
+    const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('v'); });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.rv').forEach(el => obs.observe(el));
+
+    document.addEventListener('click', e => {
+        const m = document.querySelector('.mob-menu');
+        const h = document.querySelector('.ham');
+        if (m.classList.contains('open') && !m.contains(e.target) && !h.contains(e.target)) {
+            m.classList.remove('open');
+        }
+    });
+</script>
+</body>
+</html>
